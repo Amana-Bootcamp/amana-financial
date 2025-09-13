@@ -11,30 +11,50 @@ const API_URL = '/api/portfolio';
 
 // Formats a number as a currency string.
 const formatCurrency = (value, currency = 'USD') => {
+  if (value === null || value === undefined || isNaN(value)) {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: currency,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(0);
+  }
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: currency,
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
-  }).format(value);
+  }).format(Number(value));
 };
 
 // Formats a number as a short currency string with k/M/B suffixes for axes.
 const formatCurrencyShort = (value: number) => {
-  const abs = Math.abs(value);
-  if (abs >= 1_000_000_000) return `$${(value / 1_000_000_000).toFixed(1)}B`;
-  if (abs >= 1_000_000) return `$${(value / 1_000_000).toFixed(1)}M`;
-  if (abs >= 1_000) return `$${(value / 1_000).toFixed(1)}k`;
-  return `$${Math.round(value)}`;
+  if (value === null || value === undefined || isNaN(value)) {
+    return '$0';
+  }
+  const numValue = Number(value);
+  const abs = Math.abs(numValue);
+  if (abs >= 1_000_000_000) return `$${(numValue / 1_000_000_000).toFixed(1)}B`;
+  if (abs >= 1_000_000) return `$${(numValue / 1_000_000).toFixed(1)}M`;
+  if (abs >= 1_000) return `$${(numValue / 1_000).toFixed(1)}k`;
+  return `$${Math.round(numValue)}`;
 };
 
 // Formats a number as a percentage string.
 const formatPercentage = (value) => {
-  return `${value.toFixed(2)}%`;
+  if (value === null || value === undefined || isNaN(value)) {
+    return '0.00%';
+  }
+  return `${Number(value).toFixed(2)}%`;
 };
 
 // Determines the text color for profit/loss values based on whether they are positive or negative.
-const getPnlClass = (pnl) => (pnl >= 0 ? 'text-green-500' : 'text-red-500');
+const getPnlClass = (pnl) => {
+  if (pnl === null || pnl === undefined || isNaN(pnl)) {
+    return 'text-gray-500';
+  }
+  return Number(pnl) >= 0 ? 'text-green-500' : 'text-red-500';
+};
 
 
 // --- CHILD COMPONENTS ---
