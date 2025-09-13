@@ -3,400 +3,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, ReferenceDot } from 'recharts';
 
-// --- MOCK DATA ---
-// This JSON object contains all the portfolio data for Amana Financial.
-// In a real-world application, this data would typically be fetched from an API.
-const portfolioData = {
-  "message": "Amana Financial portfolio data retrieved successfully",
-  "company_info": {
-    "name": "Amana Financial",
-    "founded": "2015",
-    "headquarters": "Dubai, UAE",
-    "industry": "Investment Management",
-    "description": "Leading Arab region focused investment firm specializing in equity portfolios across MENA markets, emphasizing regional growth opportunities and sustainable investing."
-  },
-  "portfolio_summary": {
-    "total_market_value": 269052,
-    "total_unrealized_pnl": 15822,
-    "total_unrealized_pnl_percent": 6.25,
-    "number_of_holdings": 10,
-    "ytd_return": 8.1,
-    "sharpe_ratio": 1.2,
-    "volatility": 12.5
-  },
-  "holdings": [
-    {
-      "id": 1,
-      "symbol": "2222.SR",
-      "name": "Saudi Aramco",
-      "sector": "Energy",
-      "market": "Saudi Stock Exchange (Tadawul)",
-      "country": "Saudi Arabia",
-      "currency": "SAR",
-      "shares_held": 500,
-      "avg_cost_basis": 32.5,
-      "current_price": 35.2,
-      "market_value": 17600,
-      "unrealized_pnl": 1350,
-      "unrealized_pnl_percent": 8.31,
-      "weight_in_portfolio": 15.2,
-      "market_cap": "Large",
-      "dividend_yield": 4.8,
-      "pe_ratio": 14.2,
-      "status": "Active",
-      "allocation_type": "Core",
-      "acquisition_date": "2024-01-15",
-      "last_trade_date": "2024-12-05",
-      "price_history_2024": [
-        { "month": "Jan", "value": 35.18 },
-        { "month": "Feb", "value": 35.78 },
-        { "month": "Mar", "value": 35.98 },
-        { "month": "Apr", "value": 34.33 },
-        { "month": "May", "value": 35.15 },
-        { "month": "Jun", "value": 36.31 },
-        { "month": "Jul", "value": 36.47 },
-        { "month": "Aug", "value": 38.75 },
-        { "month": "Sep", "value": 40.01 },
-        { "month": "Oct", "value": 41.04 },
-        { "month": "Nov", "value": 40.26 },
-        { "month": "Dec", "value": 43.37 }
-      ]
-    },
-    {
-      "id": 2,
-      "symbol": "1180.SR",
-      "name": "Al Rajhi Bank",
-      "sector": "Financials",
-      "market": "Saudi Stock Exchange (Tadawul)",
-      "country": "Saudi Arabia",
-      "currency": "SAR",
-      "shares_held": 300,
-      "avg_cost_basis": 95,
-      "current_price": 102.5,
-      "market_value": 30750,
-      "unrealized_pnl": 2250,
-      "unrealized_pnl_percent": 7.89,
-      "weight_in_portfolio": 26.5,
-      "market_cap": "Large",
-      "dividend_yield": 3.2,
-      "pe_ratio": 12.8,
-      "status": "Active",
-      "allocation_type": "Core",
-      "acquisition_date": "2024-02-10",
-      "last_trade_date": "2024-12-05",
-      "price_history_2024": [
-        { "month": "Jan", "value": 97.61 },
-        { "month": "Feb", "value": 101.09 },
-        { "month": "Mar", "value": 99.75 },
-        { "month": "Apr", "value": 100.08 },
-        { "month": "May", "value": 104.83 },
-        { "month": "Jun", "value": 102.9 },
-        { "month": "Jul", "value": 105.96 },
-        { "month": "Aug", "value": 108.48 },
-        { "month": "Sep", "value": 104.94 },
-        { "month": "Oct", "value": 104.81 },
-        { "month": "Nov", "value": 102.73 },
-        { "month": "Dec", "value": 109.2 }
-      ]
-    },
-    {
-      "id": 3,
-      "symbol": "ADNOCDIST.AD",
-      "name": "ADNOC Distribution",
-      "sector": "Energy",
-      "market": "Abu Dhabi Securities Exchange",
-      "country": "UAE",
-      "currency": "AED",
-      "shares_held": 800,
-      "avg_cost_basis": 4.2,
-      "current_price": 4.85,
-      "market_value": 3880,
-      "unrealized_pnl": 520,
-      "unrealized_pnl_percent": 15.48,
-      "weight_in_portfolio": 3.3,
-      "market_cap": "Large",
-      "dividend_yield": 6.2,
-      "pe_ratio": 18.5,
-      "status": "Active",
-      "allocation_type": "Growth",
-      "acquisition_date": "2024-03-22",
-      "last_trade_date": "2024-12-05",
-      "price_history_2024": [
-        { "month": "Jan", "value": 4.04 },
-        { "month": "Feb", "value": 3.88 },
-        { "month": "Mar", "value": 3.98 },
-        { "month": "Apr", "value": 3.82 },
-        { "month": "May", "value": 4.12 },
-        { "month": "Jun", "value": 4.31 },
-        { "month": "Jul", "value": 4.42 },
-        { "month": "Aug", "value": 4.29 },
-        { "month": "Sep", "value": 4.37 },
-        { "month": "Oct", "value": 4.36 },
-        { "month": "Nov", "value": 4.62 },
-        { "month": "Dec", "value": 4.5 }
-      ]
-    },
-    {
-      "id": 4,
-      "symbol": "EMAAR.DU",
-      "name": "Emaar Properties",
-      "sector": "Real Estate",
-      "market": "Dubai Financial Market",
-      "country": "UAE",
-      "currency": "AED",
-      "shares_held": 1200,
-      "avg_cost_basis": 5.1,
-      "current_price": 4.95,
-      "market_value": 5940,
-      "unrealized_pnl": -180,
-      "unrealized_pnl_percent": -2.94,
-      "weight_in_portfolio": 5.1,
-      "market_cap": "Large",
-      "dividend_yield": 4.1,
-      "pe_ratio": 15.7,
-      "status": "Active",
-      "allocation_type": "Value",
-      "acquisition_date": "2024-01-30",
-      "last_trade_date": "2024-12-05",
-      "price_history_2024": [
-        { "month": "Jan", "value": 5.32 },
-        { "month": "Feb", "value": 5.59 },
-        { "month": "Mar", "value": 5.59 },
-        { "month": "Apr", "value": 6.01 },
-        { "month": "May", "value": 6.1 },
-        { "month": "Jun", "value": 6.5 },
-        { "month": "Jul", "value": 6.55 },
-        { "month": "Aug", "value": 6.25 },
-        { "month": "Sep", "value": 6.54 },
-        { "month": "Oct", "value": 6.14 },
-        { "month": "Nov", "value": 6.23 },
-        { "month": "Dec", "value": 6.12 }
-      ]
-    },
-    {
-      "id": 5,
-      "symbol": "COMI.CA",
-      "name": "Commercial International Bank Egypt",
-      "sector": "Financials",
-      "market": "Egyptian Exchange",
-      "country": "Egypt",
-      "currency": "EGP",
-      "shares_held": 2000,
-      "avg_cost_basis": 45.8,
-      "current_price": 52.3,
-      "market_value": 104600,
-      "unrealized_pnl": 13000,
-      "unrealized_pnl_percent": 14.19,
-      "weight_in_portfolio": 9,
-      "market_cap": "Large",
-      "dividend_yield": 5.5,
-      "pe_ratio": 11.2,
-      "status": "Active",
-      "allocation_type": "Core",
-      "acquisition_date": "2024-04-15",
-      "last_trade_date": "2024-12-05",
-      "price_history_2024": [
-        { "month": "Jan", "value": 43.36 },
-        { "month": "Feb", "value": 44.44 },
-        { "month": "Mar", "value": 42.84 },
-        { "month": "Apr", "value": 40.27 },
-        { "month": "May", "value": 42.72 },
-        { "month": "Jun", "value": 46.41 },
-        { "month": "Jul", "value": 45.6 },
-        { "month": "Aug", "value": 42.18 },
-        { "month": "Sep", "value": 39.33 },
-        { "month": "Oct", "value": 41.57 },
-        { "month": "Nov", "value": 41.1 },
-        { "month": "Dec", "value": 41.49 }
-      ]
-    },
-    {
-      "id": 6,
-      "symbol": "ETEL.CA",
-      "name": "Telecom Egypt",
-      "sector": "Telecommunications",
-      "market": "Egyptian Exchange",
-      "country": "Egypt",
-      "currency": "EGP",
-      "shares_held": 1500,
-      "avg_cost_basis": 18.2,
-      "current_price": 16.9,
-      "market_value": 25350,
-      "unrealized_pnl": -1950,
-      "unrealized_pnl_percent": -7.14,
-      "weight_in_portfolio": 2.2,
-      "market_cap": "Large",
-      "dividend_yield": 7.8,
-      "pe_ratio": 9.5,
-      "status": "Active",
-      "allocation_type": "Value",
-      "acquisition_date": "2024-06-10",
-      "last_trade_date": "2024-12-05",
-      "price_history_2024": [
-        { "month": "Jan", "value": 17.08 },
-        { "month": "Feb", "value": 18.02 },
-        { "month": "Mar", "value": 17.64 },
-        { "month": "Apr", "value": 16.72 },
-        { "month": "May", "value": 15.92 },
-        { "month": "Jun", "value": 16 },
-        { "month": "Jul", "value": 14.88 },
-        { "month": "Aug", "value": 14.65 },
-        { "month": "Sep", "value": 15.58 },
-        { "month": "Oct", "value": 14.69 },
-        { "month": "Nov", "value": 16.49 },
-        { "month": "Dec", "value": 15.55 }
-      ]
-    },
-    {
-      "id": 7,
-      "symbol": "QNBK.QA",
-      "name": "Qatar National Bank",
-      "sector": "Financials",
-      "market": "Qatar Stock Exchange",
-      "country": "Qatar",
-      "currency": "QAR",
-      "shares_held": 400,
-      "avg_cost_basis": 18.5,
-      "current_price": 19.8,
-      "market_value": 7920,
-      "unrealized_pnl": 520,
-      "unrealized_pnl_percent": 7.03,
-      "weight_in_portfolio": 6.8,
-      "market_cap": "Large",
-      "dividend_yield": 4.5,
-      "pe_ratio": 10.8,
-      "status": "Active",
-      "allocation_type": "Core",
-      "acquisition_date": "2024-03-05",
-      "last_trade_date": "2024-12-05",
-      "price_history_2024": [
-        { "month": "Jan", "value": 19.86 },
-        { "month": "Feb", "value": 20.26 },
-        { "month": "Mar", "value": 20.96 },
-        { "month": "Apr", "value": 20.1 },
-        { "month": "May", "value": 20.66 },
-        { "month": "Jun", "value": 21.51 },
-        { "month": "Jul", "value": 21.38 },
-        { "month": "Aug", "value": 21.6 },
-        { "month": "Sep", "value": 22.53 },
-        { "month": "Oct", "value": 23 },
-        { "month": "Nov", "value": 22.72 },
-        { "month": "Dec", "value": 24.03 }
-      ]
-    },
-    {
-      "id": 8,
-      "symbol": "SABIC.SR",
-      "name": "Saudi Basic Industries Corp",
-      "sector": "Materials",
-      "market": "Saudi Stock Exchange (Tadawul)",
-      "country": "Saudi Arabia",
-      "currency": "SAR",
-      "shares_held": 250,
-      "avg_cost_basis": 88,
-      "current_price": 92.4,
-      "market_value": 23100,
-      "unrealized_pnl": 1100,
-      "unrealized_pnl_percent": 5,
-      "weight_in_portfolio": 2,
-      "market_cap": "Large",
-      "dividend_yield": 3.8,
-      "pe_ratio": 16.3,
-      "status": "Active",
-      "allocation_type": "Growth",
-      "acquisition_date": "2024-05-20",
-      "last_trade_date": "2024-12-05",
-      "price_history_2024": [
-        { "month": "Jan", "value": 91.26 },
-        { "month": "Feb", "value": 89.01 },
-        { "month": "Mar", "value": 93.87 },
-        { "month": "Apr", "value": 99.47 },
-        { "month": "May", "value": 94.67 },
-        { "month": "Jun", "value": 95.96 },
-        { "month": "Jul", "value": 95.79 },
-        { "month": "Aug", "value": 98.93 },
-        { "month": "Sep", "value": 95.19 },
-        { "month": "Oct", "value": 92.66 },
-        { "month": "Nov", "value": 96.04 },
-        { "month": "Dec", "value": 95.28 }
-      ]
-    },
-    {
-      "id": 9,
-      "symbol": "ALCO.JO",
-      "name": "Arab Bank",
-      "sector": "Financials",
-      "market": "Amman Stock Exchange",
-      "country": "Jordan",
-      "currency": "JOD",
-      "shares_held": 600,
-      "avg_cost_basis": 3.85,
-      "current_price": 4.12,
-      "market_value": 2472,
-      "unrealized_pnl": 162,
-      "unrealized_pnl_percent": 7.01,
-      "weight_in_portfolio": 2.1,
-      "market_cap": "Large",
-      "dividend_yield": 5.2,
-      "pe_ratio": 13.1,
-      "status": "Active",
-      "allocation_type": "Core",
-      "acquisition_date": "2024-07-18",
-      "last_trade_date": "2024-12-05",
-      "price_history_2024": [
-        { "month": "Jan", "value": 4.17 },
-        { "month": "Feb", "value": 4.16 },
-        { "month": "Mar", "value": 4.2 },
-        { "month": "Apr", "value": 4.33 },
-        { "month": "May", "value": 4.27 },
-        { "month": "Jun", "value": 4.17 },
-        { "month": "Jul", "value": 4.08 },
-        { "month": "Aug", "value": 3.98 },
-        { "month": "Sep", "value": 4.06 },
-        { "month": "Oct", "value": 4.15 },
-        { "month": "Nov", "value": 4.23 },
-        { "month": "Dec", "value": 4.12 }
-      ]
-    },
-    {
-      "id": 10,
-      "symbol": "APMTB.CA",
-      "name": "Alexandria Portland Cement",
-      "sector": "Materials",
-      "market": "Egyptian Exchange",
-      "country": "Egypt",
-      "currency": "EGP",
-      "shares_held": 1000,
-      "avg_cost_basis": 28.5,
-      "current_price": 31.2,
-      "market_value": 31200,
-      "unrealized_pnl": 2700,
-      "unrealized_pnl_percent": 9.47,
-      "weight_in_portfolio": 2.7,
-      "market_cap": "Mid",
-      "dividend_yield": 4.2,
-      "pe_ratio": 14.8,
-      "status": "Active",
-      "allocation_type": "Growth",
-      "acquisition_date": "2024-08-12",
-      "last_trade_date": "2024-12-05",
-      "price_history_2024": [
-        { "month": "Jan", "value": 29.84 },
-        { "month": "Feb", "value": 31 },
-        { "month": "Mar", "value": 30.55 },
-        { "month": "Apr", "value": 32.1 },
-        { "month": "May", "value": 34.48 },
-        { "month": "Jun", "value": 35.65 },
-        { "month": "Jul", "value": 37.47 },
-        { "month": "Aug", "value": 34.93 },
-        { "month": "Sep", "value": 36.26 },
-        { "month": "Oct", "value": 36.31 },
-        { "month": "Nov", "value": 39.85 },
-        { "month": "Dec", "value": 40.23 }
-      ]
-    }
-  ]
-};
+// --- API CONSTANTS ---
+const API_URL = '/api/portfolio';
 
 
 // --- UTILITY FUNCTIONS ---
@@ -440,16 +48,28 @@ const KpiCard = ({ title, value, className = '' }) => (
 );
 
 // Renders the main header for the application, including the company name and navigation links.
-const Header = ({ companyInfo, page, setPage }) => (
+const Header = ({ companyInfo, page, setPage, onRefresh, isRefreshing }) => (
   <header className="bg-white shadow-md">
     <div className="container mx-auto px-4 py-4 flex justify-between items-center">
       <div className="text-2xl font-bold text-gray-800">{companyInfo.name}</div>
-      <nav className="flex space-x-4">
-        <NavLink text="Dashboard" page={page} setPage={setPage} />
-        <NavLink text="Portfolio" page={page} setPage={setPage} />
-        <NavLink text="Sectors" page={page} setPage={setPage} />
-        <NavLink text="Countries" page={page} setPage={setPage} />
-      </nav>
+      <div className="flex items-center space-x-4">
+        <nav className="flex space-x-4">
+          <NavLink text="Dashboard" page={page} setPage={setPage} />
+          <NavLink text="Portfolio" page={page} setPage={setPage} />
+          <NavLink text="Sectors" page={page} setPage={setPage} />
+          <NavLink text="Countries" page={page} setPage={setPage} />
+        </nav>
+        <button
+          onClick={onRefresh}
+          disabled={isRefreshing}
+          className="bg-blue-600 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-1"
+        >
+          <svg className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          <span>{isRefreshing ? 'Refreshing...' : 'Refresh'}</span>
+        </button>
+      </div>
     </div>
   </header>
 );
@@ -719,7 +339,7 @@ const PortfolioPage = ({ holdings, setPage, allHoldings, filters, setFilters }) 
               ))
             ) : (
               <tr>
-                <td colSpan="5" className="text-center py-8 text-gray-500">
+                <td colSpan={5} className="text-center py-8 text-gray-500">
                     No holdings match the current filters.
                 </td>
               </tr>
@@ -948,22 +568,64 @@ const CountryBreakdownPage = ({ holdings }) => {
 
 // --- MAIN APP COMPONENT ---
 
-// The root component of the application. It now manages the filter state.
+// The root component of the application. It now manages the filter state and API data.
 export default function App() {
   const [page, setPage] = useState({ view: 'dashboard' });
-  // useState hook to manage the current filter selections.
   const [filters, setFilters] = useState({ sector: 'all', country: 'all' });
   const [timeframe, setTimeframe] = useState('12M');
+  
+  // State for API data management
+  const [portfolioData, setPortfolioData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Function to fetch data from API
+  const fetchPortfolioData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await fetch(API_URL);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      
+      // Transform the API data to match our expected format
+      const transformedData = {
+        ...data,
+        holdings: data.holdings?.map(holding => ({
+          ...holding,
+          price_history_2024: holding.price_history_2024?.map(item => ({
+            month: item.month.substring(0, 3), // Convert "January" to "Jan"
+            value: item.value
+          }))
+        }))
+      };
+      
+      setPortfolioData(transformedData);
+    } catch (err) {
+      setError(err.message);
+      console.error('Error fetching portfolio data:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Initial data fetch on component mount
+  useEffect(() => {
+    fetchPortfolioData();
+  }, []);
 
   // useMemo is a performance optimization. The filtering logic will only re-run
-  // when the `filters` state changes, not on every render.
+  // when the `filters` state or portfolioData changes, not on every render.
   const filteredHoldings = useMemo(() => {
+    if (!portfolioData?.holdings) return [];
     return portfolioData.holdings.filter(holding => {
         const sectorMatch = filters.sector === 'all' || holding.sector === filters.sector;
         const countryMatch = filters.country === 'all' || holding.country === filters.country;
         return sectorMatch && countryMatch;
     });
-  }, [filters]);
+  }, [filters, portfolioData]);
 
   // useEffect hook demonstrates reacting to data changes.
   // This will log a message to the browser console whenever the filteredHoldings array is updated.
@@ -972,6 +634,41 @@ export default function App() {
   }, [filteredHoldings]);
 
   const renderContent = () => {
+    if (loading) {
+      return (
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading portfolio data...</p>
+          </div>
+        </div>
+      );
+    }
+
+    if (error) {
+      return (
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="text-center bg-red-50 p-6 rounded-lg border border-red-200">
+            <p className="text-red-600 mb-4">Error loading portfolio data: {error}</p>
+            <button 
+              onClick={fetchPortfolioData}
+              className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    if (!portfolioData) {
+      return (
+        <div className="flex items-center justify-center min-h-[400px]">
+          <p className="text-gray-600">No data available</p>
+        </div>
+      );
+    }
+
     switch (page.view) {
       case 'dashboard':
         // Dashboard charts are now based on filtered data to stay consistent.
@@ -987,7 +684,7 @@ export default function App() {
                 />;
       case 'stock':
         // The stock detail page uses the original dataset to find the stock by ID.
-        const selectedStock = portfolioData.holdings.find(s => s.id === page.id);
+        const selectedStock = portfolioData.holdings.find(s => s.id === (page as any).id);
         return <StockDetailPage stock={selectedStock} setPage={setPage} />;
       case 'sectors':
         return <SectorBreakdownPage holdings={filteredHoldings} />;
@@ -1000,7 +697,15 @@ export default function App() {
 
   return (
     <div className="bg-gray-100 min-h-screen font-sans">
-      <Header companyInfo={portfolioData.company_info} page={page} setPage={setPage} />
+      {portfolioData && (
+        <Header 
+          companyInfo={portfolioData.company_info} 
+          page={page} 
+          setPage={setPage}
+          onRefresh={fetchPortfolioData}
+          isRefreshing={loading}
+        />
+      )}
       <main className="container mx-auto p-4 md:p-8">
         {renderContent()}
       </main>
