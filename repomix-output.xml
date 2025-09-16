@@ -1,0 +1,1073 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.gitignore
+app/api/portfolio/route.ts
+app/globals.css
+app/layout.tsx
+app/page.tsx
+next.config.ts
+package.json
+postcss.config.mjs
+public/file.svg
+public/globe.svg
+public/next.svg
+public/vercel.svg
+public/window.svg
+README.md
+tailwind.config.ts
+tsconfig.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".gitignore">
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+</file>
+
+<file path="app/api/portfolio/route.ts">
+import { NextResponse } from 'next/server';
+
+const API_URL = 'https://www.amanabootcamp.org/api/fs-classwork-data/amana-financial';
+
+export async function GET() {
+  try {
+    const response = await fetch(API_URL, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error('Error fetching portfolio data:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch portfolio data' },
+      { status: 500 }
+    );
+  }
+}
+</file>
+
+<file path="postcss.config.mjs">
+const config = {
+  plugins: ["@tailwindcss/postcss"],
+};
+
+export default config;
+</file>
+
+<file path="public/file.svg">
+<svg fill="none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M14.5 13.5V5.41a1 1 0 0 0-.3-.7L9.8.29A1 1 0 0 0 9.08 0H1.5v13.5A2.5 2.5 0 0 0 4 16h8a2.5 2.5 0 0 0 2.5-2.5m-1.5 0v-7H8v-5H3v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1M9.5 5V2.12L12.38 5zM5.13 5h-.62v1.25h2.12V5zm-.62 3h7.12v1.25H4.5zm.62 3h-.62v1.25h7.12V11z" clip-rule="evenodd" fill="#666" fill-rule="evenodd"/></svg>
+</file>
+
+<file path="public/globe.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g clip-path="url(#a)"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.27 14.1a6.5 6.5 0 0 0 3.67-3.45q-1.24.21-2.7.34-.31 1.83-.97 3.1M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.48-1.52a7 7 0 0 1-.96 0H7.5a4 4 0 0 1-.84-1.32q-.38-.89-.63-2.08a40 40 0 0 0 3.92 0q-.25 1.2-.63 2.08a4 4 0 0 1-.84 1.31zm2.94-4.76q1.66-.15 2.95-.43a7 7 0 0 0 0-2.58q-1.3-.27-2.95-.43a18 18 0 0 1 0 3.44m-1.27-3.54a17 17 0 0 1 0 3.64 39 39 0 0 1-4.3 0 17 17 0 0 1 0-3.64 39 39 0 0 1 4.3 0m1.1-1.17q1.45.13 2.69.34a6.5 6.5 0 0 0-3.67-3.44q.65 1.26.98 3.1M8.48 1.5l.01.02q.41.37.84 1.31.38.89.63 2.08a40 40 0 0 0-3.92 0q.25-1.2.63-2.08a4 4 0 0 1 .85-1.32 7 7 0 0 1 .96 0m-2.75.4a6.5 6.5 0 0 0-3.67 3.44 29 29 0 0 1 2.7-.34q.31-1.83.97-3.1M4.58 6.28q-1.66.16-2.95.43a7 7 0 0 0 0 2.58q1.3.27 2.95.43a18 18 0 0 1 0-3.44m.17 4.71q-1.45-.12-2.69-.34a6.5 6.5 0 0 0 3.67 3.44q-.65-1.27-.98-3.1" fill="#666"/></g><defs><clipPath id="a"><path fill="#fff" d="M0 0h16v16H0z"/></clipPath></defs></svg>
+</file>
+
+<file path="public/next.svg">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 394 80"><path fill="#000" d="M262 0h68.5v12.7h-27.2v66.6h-13.6V12.7H262V0ZM149 0v12.7H94v20.4h44.3v12.6H94v21h55v12.6H80.5V0h68.7zm34.3 0h-17.8l63.8 79.4h17.9l-32-39.7 32-39.6h-17.9l-23 28.6-23-28.6zm18.3 56.7-9-11-27.1 33.7h17.8l18.3-22.7z"/><path fill="#000" d="M81 79.3 17 0H0v79.3h13.6V17l50.2 62.3H81Zm252.6-.4c-1 0-1.8-.4-2.5-1s-1.1-1.6-1.1-2.6.3-1.8 1-2.5 1.6-1 2.6-1 1.8.3 2.5 1a3.4 3.4 0 0 1 .6 4.3 3.7 3.7 0 0 1-3 1.8zm23.2-33.5h6v23.3c0 2.1-.4 4-1.3 5.5a9.1 9.1 0 0 1-3.8 3.5c-1.6.8-3.5 1.3-5.7 1.3-2 0-3.7-.4-5.3-1s-2.8-1.8-3.7-3.2c-.9-1.3-1.4-3-1.4-5h6c.1.8.3 1.6.7 2.2s1 1.2 1.6 1.5c.7.4 1.5.5 2.4.5 1 0 1.8-.2 2.4-.6a4 4 0 0 0 1.6-1.8c.3-.8.5-1.8.5-3V45.5zm30.9 9.1a4.4 4.4 0 0 0-2-3.3 7.5 7.5 0 0 0-4.3-1.1c-1.3 0-2.4.2-3.3.5-.9.4-1.6 1-2 1.6a3.5 3.5 0 0 0-.3 4c.3.5.7.9 1.3 1.2l1.8 1 2 .5 3.2.8c1.3.3 2.5.7 3.7 1.2a13 13 0 0 1 3.2 1.8 8.1 8.1 0 0 1 3 6.5c0 2-.5 3.7-1.5 5.1a10 10 0 0 1-4.4 3.5c-1.8.8-4.1 1.2-6.8 1.2-2.6 0-4.9-.4-6.8-1.2-2-.8-3.4-2-4.5-3.5a10 10 0 0 1-1.7-5.6h6a5 5 0 0 0 3.5 4.6c1 .4 2.2.6 3.4.6 1.3 0 2.5-.2 3.5-.6 1-.4 1.8-1 2.4-1.7a4 4 0 0 0 .8-2.4c0-.9-.2-1.6-.7-2.2a11 11 0 0 0-2.1-1.4l-3.2-1-3.8-1c-2.8-.7-5-1.7-6.6-3.2a7.2 7.2 0 0 1-2.4-5.7 8 8 0 0 1 1.7-5 10 10 0 0 1 4.3-3.5c2-.8 4-1.2 6.4-1.2 2.3 0 4.4.4 6.2 1.2 1.8.8 3.2 2 4.3 3.4 1 1.4 1.5 3 1.5 5h-5.8z"/></svg>
+</file>
+
+<file path="public/vercel.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1155 1000"><path d="m577.3 0 577.4 1000H0z" fill="#fff"/></svg>
+</file>
+
+<file path="public/window.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 2.5h13v10a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1zM0 1h16v11.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 0 12.5zm3.75 4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M7 4.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m1.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5" fill="#666"/></svg>
+</file>
+
+<file path="README.md">
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+</file>
+
+<file path="tailwind.config.ts">
+import type { Config } from 'tailwindcss'
+
+const config: Config = {
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+}
+export default config
+</file>
+
+<file path="tsconfig.json">
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}
+</file>
+
+<file path="app/globals.css">
+@import "tailwindcss";
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+</file>
+
+<file path="app/layout.tsx">
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Amana Financial – Portfolio Dashboard",
+  description: "Interactive investment portfolio dashboard for Amana Financial with holdings, performance, and sector/country breakdowns.",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        {children}
+      </body>
+    </html>
+  );
+}
+</file>
+
+<file path="next.config.ts">
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+};
+
+export default nextConfig;
+</file>
+
+<file path="package.json">
+{
+  "name": "nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "15.5.3",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "recharts": "^3.2.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
+</file>
+
+<file path="app/page.tsx">
+"use client"
+
+import React, { useState, useEffect, useMemo } from 'react';
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, ReferenceDot } from 'recharts';
+
+// --- API CONSTANTS ---
+const API_URL = '/api/portfolio';
+
+
+// --- UTILITY FUNCTIONS ---
+
+// Formats a number as a currency string.
+const formatCurrency = (value, currency = 'USD') => {
+  if (value === null || value === undefined || isNaN(value)) {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: currency,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(0);
+  }
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: currency,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(Number(value));
+};
+
+// Formats a number as a short currency string with k/M/B suffixes for axes.
+const formatCurrencyShort = (value: number) => {
+  if (value === null || value === undefined || isNaN(value)) {
+    return '$0';
+  }
+  const numValue = Number(value);
+  const abs = Math.abs(numValue);
+  if (abs >= 1_000_000_000) return `$${(numValue / 1_000_000_000).toFixed(1)}B`;
+  if (abs >= 1_000_000) return `$${(numValue / 1_000_000).toFixed(1)}M`;
+  if (abs >= 1_000) return `$${(numValue / 1_000).toFixed(1)}k`;
+  return `$${Math.round(numValue)}`;
+};
+
+// Formats a number as a percentage string.
+const formatPercentage = (value) => {
+  if (value === null || value === undefined || isNaN(value)) {
+    return '0.00%';
+  }
+  return `${Number(value).toFixed(2)}%`;
+};
+
+// Determines the text color for profit/loss values based on whether they are positive or negative.
+const getPnlClass = (pnl) => {
+  if (pnl === null || pnl === undefined || isNaN(pnl)) {
+    return 'text-gray-500';
+  }
+  return Number(pnl) >= 0 ? 'text-green-500' : 'text-red-500';
+};
+
+
+// --- CHILD COMPONENTS ---
+
+// Displays a single key performance indicator (KPI) with a title and value.
+const KpiCard = ({ title, value, className = '' }) => (
+  <div className="bg-white p-4 rounded-lg shadow">
+    <h3 className="text-sm font-medium text-gray-500">{title}</h3>
+    <p className={`text-2xl font-semibold ${className}`}>{value}</p>
+  </div>
+);
+
+// Renders the main header for the application, including the company name and navigation links.
+const Header = ({ companyInfo, page, setPage, onRefresh, isRefreshing }) => (
+  <header className="bg-white shadow-md">
+    <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div className="text-2xl font-bold text-gray-800">{companyInfo.name}</div>
+      <div className="flex items-center space-x-4">
+        <nav className="flex space-x-4">
+          <NavLink text="Dashboard" page={page} setPage={setPage} />
+          <NavLink text="Portfolio" page={page} setPage={setPage} />
+          <NavLink text="Sectors" page={page} setPage={setPage} />
+          <NavLink text="Countries" page={page} setPage={setPage} />
+        </nav>
+        <button
+          onClick={onRefresh}
+          disabled={isRefreshing}
+          className="bg-blue-600 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-1"
+        >
+          <svg className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          <span>{isRefreshing ? 'Refreshing...' : 'Refresh'}</span>
+        </button>
+      </div>
+    </div>
+  </header>
+);
+
+// Represents a single navigation link in the header.
+const NavLink = ({ text, page, setPage }) => (
+  <button
+    onClick={() => setPage({ view: text.toLowerCase() })}
+    className={`px-3 py-2 rounded-md text-sm font-medium cursor-pointer ${
+      page.view === text.toLowerCase() ? 'bg-gray-900 text-white' : 'text-gray-700 hover:bg-gray-200'
+    }`}
+  >
+    {text}
+  </button>
+);
+
+// This new component renders the filter dropdowns.
+const PortfolioFilters = ({ filters, setFilters, allHoldings }) => {
+    // We derive the unique sectors and countries from the complete dataset to populate the dropdowns.
+    const uniqueSectors = ['all', ...Array.from(new Set(allHoldings.map(h => h.sector)))];
+    const uniqueCountries = ['all', ...Array.from(new Set(allHoldings.map(h => h.country)))];
+
+    // This function handles changes to any filter dropdown.
+    const handleFilterChange = (e) => {
+        const { name, value } = e.target;
+        setFilters(prevFilters => ({
+            ...prevFilters,
+            [name]: value
+        }));
+    };
+
+    return (
+        <div className="bg-white p-4 rounded-lg shadow mb-4 flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 items-start md:items-center">
+            <span className="font-semibold text-gray-700">Filter by:</span>
+            <div className="flex space-x-4">
+                <div>
+                    <label htmlFor="sector" className="sr-only">Sector</label>
+                    <select 
+                        name="sector" 
+                        id="sector"
+                        value={filters.sector}
+                        onChange={handleFilterChange}
+                        className="rounded-md border-gray-300 shadow-sm cursor-pointer focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    >
+                        {uniqueSectors.map(sector => <option key={sector} value={sector}>{sector === 'all' ? 'All Sectors' : sector}</option>)}
+                    </select>
+                </div>
+                <div>
+                    <label htmlFor="country" className="sr-only">Country</label>
+                    <select 
+                        name="country" 
+                        id="country"
+                        value={filters.country}
+                        onChange={handleFilterChange}
+                        className="rounded-md border-gray-300 shadow-sm cursor-pointer focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    >
+                        {uniqueCountries.map(country => <option key={country} value={country}>{country === 'all' ? 'All Countries' : country}</option>)}
+                    </select>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+
+// --- PAGE COMPONENTS ---
+
+// Displays the main dashboard, including a portfolio summary and charts.
+// Note: The charts on this page now update based on the filtered data.
+const DashboardPage = ({ summary, holdings, setPage, timeframe, setTimeframe }) => {
+    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
+
+    // Build portfolio-level monthly history by summing each holding's
+    // shares_held * monthly price. This respects current filters.
+    const months: string[] = (holdings[0]?.price_history_2024?.map((p: any) => p.month)) ?? ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const monthsByFrame = { '12M': 12, '6M': 6, '3M': 3 } as const;
+    const visibleMonths = months.slice(-((monthsByFrame as any)[timeframe] || 12));
+    const portfolioHistoryData = visibleMonths.map((month: string) => {
+        const totalValue = holdings.reduce((sum: number, h: any) => {
+            const point = h.price_history_2024?.find((p: any) => p.month === month);
+            if (!point) return sum;
+            return sum + (point.value * h.shares_held);
+        }, 0 as number);
+        return { month, value: totalValue };
+    });
+
+    const sectorData = holdings.reduce((acc, holding) => {
+        const sector = acc.find(item => item.name === holding.sector);
+        if (sector) {
+            sector.value += holding.market_value;
+        } else {
+            acc.push({ name: holding.sector, value: holding.market_value });
+        }
+        return acc;
+    }, []);
+    
+    const countryData = holdings.reduce((acc, holding) => {
+        const country = acc.find(item => item.name === holding.country);
+        if (country) {
+            country.value += holding.market_value;
+        } else {
+            acc.push({ name: holding.country, value: holding.market_value });
+        }
+        return acc;
+    }, []);
+
+  return (
+    <div>
+      <h2 className="text-2xl font-bold mb-4">Portfolio Overview</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <KpiCard title="Total Market Value" value={formatCurrency(summary.total_market_value)} />
+        <KpiCard title="Unrealized P/L" value={formatCurrency(summary.total_unrealized_pnl)} className={getPnlClass(summary.total_unrealized_pnl)} />
+        <KpiCard title="YTD Return" value={formatPercentage(summary.ytd_return)} className={getPnlClass(summary.ytd_return)} />
+        <KpiCard title="Number of Holdings" value={summary.number_of_holdings} />
+      </div>
+      <div className="bg-white p-4 rounded-lg shadow mb-8">
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-lg font-semibold">Portfolio Value Over 2024</h3>
+          <div className="inline-flex rounded-md shadow-sm" role="group">
+            {['12M','6M','3M'].map((label) => (
+              <button
+                key={label}
+                onClick={() => setTimeframe(label)}
+                className={`px-3 py-1 text-sm border cursor-pointer transition-colors ${timeframe === label ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-800 hover:text-white'} ${label === '12M' ? 'rounded-l-md' : ''} ${label === '3M' ? 'rounded-r-md' : ''}`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <ResponsiveContainer width="100%" height={350}>
+          <LineChart data={portfolioHistoryData} margin={{ left: 10, right: 16, top: 8, bottom: 8 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="month" />
+            {(() => {
+              const values = portfolioHistoryData.map((d: any) => d.value);
+              const minVal = Math.min(...values);
+              const maxVal = Math.max(...values);
+              const range = Math.max(1, maxVal - minVal || minVal * 0.05);
+              const pad = range * 0.1;
+              const axisMin = Math.max(0, minVal - pad);
+              const axisMax = maxVal + pad;
+              return (
+                <YAxis
+                  tickFormatter={(value) => formatCurrencyShort(value as number)}
+                  domain={[axisMin, axisMax]}
+                  tickCount={6}
+                  width={80}
+                  tickMargin={8}
+                />
+              );
+            })()}
+            <Tooltip formatter={(value) => formatCurrency(value)} />
+            <Legend />
+            <Line type="monotone" dataKey="value" stroke="#2563eb" name="Portfolio Value" />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+      
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="bg-white p-4 rounded-lg shadow">
+          <h3 className="text-lg font-semibold mb-2">Sector Allocation</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie data={sectorData} cx="50%" cy="50%" labelLine={false} outerRadius={100} fill="#8884d8" dataKey="value" nameKey="name" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
+                {sectorData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)}
+              </Pie>
+              <Tooltip formatter={(value) => formatCurrency(value)} />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="bg-white p-4 rounded-lg shadow">
+          <h3 className="text-lg font-semibold mb-2">Country Allocation</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie data={countryData} cx="50%" cy="50%" labelLine={false} outerRadius={100} fill="#82ca9d" dataKey="value" nameKey="name" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
+                {countryData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)}
+              </Pie>
+              <Tooltip formatter={(value) => formatCurrency(value)} />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// This page now includes the filter component and displays the filtered list of holdings.
+const PortfolioPage = ({ holdings, setPage, allHoldings, filters, setFilters }) => {
+  const [sort, setSort] = useState({ key: 'market_value', dir: 'desc' });
+
+  const sortedHoldings = useMemo(() => {
+    const arr = [...holdings];
+    arr.sort((a: any, b: any) => {
+      const dir = sort.dir === 'asc' ? 1 : -1;
+      const key = sort.key as any;
+      const aVal = a[key];
+      const bVal = b[key];
+      if (typeof aVal === 'number' && typeof bVal === 'number') {
+        return aVal > bVal ? dir : aVal < bVal ? -dir : 0;
+      }
+      const aStr = String(aVal).toLowerCase();
+      const bStr = String(bVal).toLowerCase();
+      return aStr > bStr ? dir : aStr < bStr ? -dir : 0;
+    });
+    return arr;
+  }, [holdings, sort]);
+
+  const toggleSort = (key: any) => {
+    setSort((prev) => {
+      if (prev.key === key) {
+        return { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' };
+      }
+      const isText = key === 'name' || key === 'sector';
+      return { key, dir: isText ? 'asc' : 'desc' };
+    });
+  };
+  return (
+    <div>
+      <h2 className="text-2xl font-bold mb-4">Portfolio Holdings</h2>
+      <PortfolioFilters filters={filters} setFilters={setFilters} allHoldings={allHoldings} />
+      <div className="bg-white shadow overflow-hidden rounded-lg">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <button onClick={() => toggleSort('name')} className="flex items-center gap-1 cursor-pointer hover:underline">
+                  Name {sort.key === 'name' && <span>{sort.dir === 'asc' ? '↑' : '↓'}</span>}
+                </button>
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <button onClick={() => toggleSort('sector')} className="flex items-center gap-1 cursor-pointer hover:underline">
+                  Sector {sort.key === 'sector' && <span>{sort.dir === 'asc' ? '↑' : '↓'}</span>}
+                </button>
+              </th>
+              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <button onClick={() => toggleSort('market_value')} className="flex items-center gap-1 w-full justify-end cursor-pointer hover:underline">
+                  Market Value {sort.key === 'market_value' && <span>{sort.dir === 'asc' ? '↑' : '↓'}</span>}
+                </button>
+              </th>
+              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <button onClick={() => toggleSort('unrealized_pnl')} className="flex items-center gap-1 w-full justify-end cursor-pointer hover:underline">
+                  Unrealized P/L {sort.key === 'unrealized_pnl' && <span>{sort.dir === 'asc' ? '↑' : '↓'}</span>}
+                </button>
+              </th>
+              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <button onClick={() => toggleSort('weight_in_portfolio')} className="flex items-center gap-1 w-full justify-end cursor-pointer hover:underline">
+                  Weight {sort.key === 'weight_in_portfolio' && <span>{sort.dir === 'asc' ? '↑' : '↓'}</span>}
+                </button>
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {holdings.length > 0 ? (
+              sortedHoldings.map(stock => (
+                <tr key={stock.id} onClick={() => setPage({ view: 'stock', id: stock.id })} className="hover:bg-gray-100 cursor-pointer">
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm font-medium text-gray-900">{stock.name}</div>
+                    <div className="text-sm text-gray-500">{stock.symbol}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{stock.sector}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm text-gray-900">{formatCurrency(stock.market_value, stock.currency)}</td>
+                  <td className={`px-6 py-4 whitespace-nowrap text-right text-sm ${getPnlClass(stock.unrealized_pnl)}`}>{formatCurrency(stock.unrealized_pnl, stock.currency)} ({formatPercentage(stock.unrealized_pnl_percent)})</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm text-gray-500">{formatPercentage(stock.weight_in_portfolio)}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={5} className="text-center py-8 text-gray-500">
+                    No holdings match the current filters.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+// Provides an in-depth view of a single selected stock, including its price history.
+const StockDetailPage = ({ stock, setPage }) => {
+  if (!stock) return <p>Stock not found.</p>;
+
+  const [activeTab, setActiveTab] = useState('overview');
+  const [showDividends, setShowDividends] = useState(false);
+  const dividendMonths = ['Mar','Jun','Sep','Dec'];
+  const monthToValue: Record<string, number> = Object.fromEntries(
+    (stock.price_history_2024 || []).map((p: any) => [p.month, p.value])
+  );
+
+  return (
+    <div>
+      <button onClick={() => setPage({ view: 'portfolio' })} className="mb-4 text-sm text-blue-600 hover:underline cursor-pointer">&larr; Back to Portfolio</button>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-3xl font-bold">{stock.name} ({stock.symbol})</h2>
+        <div className="text-3xl font-bold">{formatCurrency(stock.current_price, stock.currency)}</div>
+      </div>
+
+      <div className="mb-4">
+        <div className="inline-flex rounded-md shadow-sm" role="tablist">
+          {['overview','metrics','dividends'].map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-3 py-1 text-sm border cursor-pointer transition-colors ${activeTab === tab ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-800 hover:text-white'} ${tab === 'overview' ? 'rounded-l-md' : ''} ${tab === 'dividends' ? 'rounded-r-md' : ''}`}
+            >
+              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {activeTab === 'overview' && (
+        <>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+            <KpiCard title="Sector" value={stock.sector} />
+            <KpiCard title="Country" value={stock.country} />
+            <KpiCard title="Market Cap" value={stock.market_cap} />
+            <KpiCard title="P/E Ratio" value={stock.pe_ratio} />
+            <KpiCard title="Div. Yield" value={formatPercentage(stock.dividend_yield)} />
+            <KpiCard title="Weight" value={formatPercentage(stock.weight_in_portfolio)} />
+          </div>
+
+          <div className="bg-white p-6 rounded-lg shadow">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-semibold">2024 Price History ({stock.currency})</h3>
+              <button
+                onClick={() => setShowDividends(v => !v)}
+                className={`px-3 py-1 text-sm rounded-md border cursor-pointer hover:opacity-90 ${showDividends ? 'bg-green-600 text-white border-green-600' : 'bg-white text-gray-700 border-gray-300'}`}
+              >
+                {showDividends ? 'Hide Dividends' : 'Show Dividends'}
+              </button>
+            </div>
+            <ResponsiveContainer width="100%" height={400}>
+              <LineChart data={stock.price_history_2024}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis domain={['dataMin - 1', 'dataMax + 1']} />
+                <Tooltip formatter={(value) => formatCurrency(value, stock.currency)} />
+                <Legend />
+                <Line type="monotone" dataKey="value" stroke="#8884d8" activeDot={{ r: 8 }} name="Price" />
+                {showDividends && dividendMonths.map((m) => (
+                  monthToValue[m] != null ? (
+                    <ReferenceDot key={m} x={m} y={monthToValue[m]} r={6} fill="#10b981" stroke="none" />
+                  ) : null
+                ))}
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </>
+      )}
+
+      {activeTab === 'metrics' && (
+        <div className="bg-white p-6 rounded-lg shadow">
+          <h3 className="text-xl font-semibold mb-4">Key Metrics</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <KpiCard title="Avg. Cost Basis" value={formatCurrency(stock.avg_cost_basis, stock.currency)} />
+            <KpiCard title="Shares Held" value={stock.shares_held} />
+            <KpiCard title="Market Value" value={formatCurrency(stock.market_value, stock.currency)} />
+            <KpiCard title="Unrealized P/L" value={`${formatCurrency(stock.unrealized_pnl, stock.currency)} (${formatPercentage(stock.unrealized_pnl_percent)})`} className={getPnlClass(stock.unrealized_pnl)} />
+          </div>
+        </div>
+      )}
+
+      {activeTab === 'dividends' && (
+        <div className="bg-white p-6 rounded-lg shadow">
+          <h3 className="text-xl font-semibold mb-4">Dividends</h3>
+          {(() => {
+            const annualDividendPerShare = stock.current_price * (stock.dividend_yield / 100);
+            const quarterlyDividend = annualDividendPerShare / 4;
+            return (
+              <div className="space-y-2 text-sm text-gray-700">
+                <p>Estimated annual dividend per share: <span className="font-semibold">{formatCurrency(annualDividendPerShare, stock.currency)}</span></p>
+                <p>Approx. quarterly payments (Mar, Jun, Sep, Dec): <span className="font-semibold">{formatCurrency(quarterlyDividend, stock.currency)}</span></p>
+              </div>
+            );
+          })()}
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Displays a breakdown of the portfolio by sector.
+const SectorBreakdownPage = ({ holdings }) => {
+    const sectorSummary = holdings.reduce((acc, holding) => {
+        if (!acc[holding.sector]) {
+            acc[holding.sector] = { market_value: 0, count: 0 };
+        }
+        acc[holding.sector].market_value += holding.market_value;
+        acc[holding.sector].count += 1;
+        return acc;
+    }, {});
+
+    const chartData = Object.entries(sectorSummary).map(([name, data]) => ({ name, ...data }));
+  
+    return (
+      <div>
+        <h2 className="text-2xl font-bold mb-4">Sector Breakdown</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-white p-4 rounded-lg shadow">
+            <h3 className="text-lg font-semibold mb-2">Total Value by Sector</h3>
+            <ResponsiveContainer width="100%" height={400}>
+              <BarChart data={chartData} layout="vertical">
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis type="number" tickFormatter={(value) => formatCurrency(value)} />
+                <YAxis type="category" dataKey="name" width={120}/>
+                <Tooltip formatter={(value) => formatCurrency(value)} />
+                <Legend />
+                <Bar dataKey="market_value" fill="#8884d8" name="Market Value" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="bg-white shadow overflow-hidden rounded-lg">
+             <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                    <tr>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Sector</th>
+                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Total Market Value</th>
+                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase"># of Holdings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {Object.entries(sectorSummary).map(([sector, data]) => (
+                        <tr key={sector} className="bg-white">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{sector}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right">{formatCurrency(data.market_value)}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right">{data.count}</td>
+                        </tr>
+                    ))}
+                </tbody>
+             </table>
+          </div>
+        </div>
+      </div>
+    );
+};
+
+// Displays a breakdown of the portfolio by country.
+const CountryBreakdownPage = ({ holdings }) => {
+    const countrySummary = holdings.reduce((acc, holding) => {
+        if (!acc[holding.country]) {
+            acc[holding.country] = { market_value: 0, count: 0 };
+        }
+        acc[holding.country].market_value += holding.market_value;
+        acc[holding.country].count += 1;
+        return acc;
+    }, {});
+
+    const chartData = Object.entries(countrySummary).map(([name, data]) => ({ name, ...data }));
+  
+    return (
+      <div>
+        <h2 className="text-2xl font-bold mb-4">Country Breakdown</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-white p-4 rounded-lg shadow">
+            <h3 className="text-lg font-semibold mb-2">Total Value by Country</h3>
+            <ResponsiveContainer width="100%" height={400}>
+              <BarChart data={chartData} layout="vertical">
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis type="number" tickFormatter={(value) => formatCurrency(value)} />
+                <YAxis type="category" dataKey="name" width={100}/>
+                <Tooltip formatter={(value) => formatCurrency(value)} />
+                <Legend />
+                <Bar dataKey="market_value" fill="#82ca9d" name="Market Value" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="bg-white shadow overflow-hidden rounded-lg">
+             <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                    <tr>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Country</th>
+                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Total Market Value</th>
+                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase"># of Holdings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {Object.entries(countrySummary).map(([country, data]) => (
+                        <tr key={country} className="bg-white">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{country}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right">{formatCurrency(data.market_value)}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right">{data.count}</td>
+                        </tr>
+                    ))}
+                </tbody>
+             </table>
+          </div>
+        </div>
+      </div>
+    );
+};
+
+
+// --- MAIN APP COMPONENT ---
+
+// The root component of the application. It now manages the filter state and API data.
+export default function App() {
+  const [page, setPage] = useState({ view: 'dashboard' });
+  const [filters, setFilters] = useState({ sector: 'all', country: 'all' });
+  const [timeframe, setTimeframe] = useState('12M');
+  
+  // State for API data management
+  const [portfolioData, setPortfolioData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Function to fetch data from API
+  const fetchPortfolioData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await fetch(API_URL);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      
+      // Transform the API data to match our expected format
+      const transformedData = {
+        ...data,
+        holdings: data.holdings?.map(holding => ({
+          ...holding,
+          price_history_2024: holding.price_history_2024?.map(item => ({
+            month: item.month.substring(0, 3), // Convert "January" to "Jan"
+            value: item.value
+          }))
+        }))
+      };
+      
+      setPortfolioData(transformedData);
+    } catch (err) {
+      setError(err.message);
+      console.error('Error fetching portfolio data:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Initial data fetch on component mount
+  useEffect(() => {
+    fetchPortfolioData();
+  }, []);
+
+  // useMemo is a performance optimization. The filtering logic will only re-run
+  // when the `filters` state or portfolioData changes, not on every render.
+  const filteredHoldings = useMemo(() => {
+    if (!portfolioData?.holdings) return [];
+    return portfolioData.holdings.filter(holding => {
+        const sectorMatch = filters.sector === 'all' || holding.sector === filters.sector;
+        const countryMatch = filters.country === 'all' || holding.country === filters.country;
+        return sectorMatch && countryMatch;
+    });
+  }, [filters, portfolioData]);
+
+  // useEffect hook demonstrates reacting to data changes.
+  // This will log a message to the browser console whenever the filteredHoldings array is updated.
+  useEffect(() => {
+    console.log(`Filtered data updated. Now showing ${filteredHoldings.length} holdings.`);
+  }, [filteredHoldings]);
+
+  const renderContent = () => {
+    if (loading) {
+      return (
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading portfolio data...</p>
+          </div>
+        </div>
+      );
+    }
+
+    if (error) {
+      return (
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="text-center bg-red-50 p-6 rounded-lg border border-red-200">
+            <p className="text-red-600 mb-4">Error loading portfolio data: {error}</p>
+            <button 
+              onClick={fetchPortfolioData}
+              className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    if (!portfolioData) {
+      return (
+        <div className="flex items-center justify-center min-h-[400px]">
+          <p className="text-gray-600">No data available</p>
+        </div>
+      );
+    }
+
+    switch (page.view) {
+      case 'dashboard':
+        // Dashboard charts are now based on filtered data to stay consistent.
+        return <DashboardPage summary={portfolioData.portfolio_summary} holdings={filteredHoldings} setPage={setPage} timeframe={timeframe} setTimeframe={setTimeframe} />;
+      case 'portfolio':
+        // Pass the filter state, setter function, and full dataset to the Portfolio page.
+        return <PortfolioPage 
+                    holdings={filteredHoldings} 
+                    setPage={setPage}
+                    allHoldings={portfolioData.holdings}
+                    filters={filters}
+                    setFilters={setFilters}
+                />;
+      case 'stock':
+        // The stock detail page uses the original dataset to find the stock by ID.
+        const selectedStock = portfolioData.holdings.find(s => s.id === (page as any).id);
+        return <StockDetailPage stock={selectedStock} setPage={setPage} />;
+      case 'sectors':
+        return <SectorBreakdownPage holdings={filteredHoldings} />;
+      case 'countries':
+        return <CountryBreakdownPage holdings={filteredHoldings} />;
+      default:
+        return <DashboardPage summary={portfolioData.portfolio_summary} holdings={filteredHoldings} setPage={setPage} timeframe={timeframe} setTimeframe={setTimeframe} />;
+    }
+  };
+
+  return (
+    <div className="bg-gray-100 min-h-screen font-sans">
+      {portfolioData && (
+        <Header 
+          companyInfo={portfolioData.company_info} 
+          page={page} 
+          setPage={setPage}
+          onRefresh={fetchPortfolioData}
+          isRefreshing={loading}
+        />
+      )}
+      <main className="container mx-auto p-4 md:p-8">
+        {renderContent()}
+      </main>
+    </div>
+  );
+}
+</file>
+
+</files>

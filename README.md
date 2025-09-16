@@ -1,9 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Amana Marketing Dashboard
+
+A comprehensive marketing analytics dashboard built with Next.js that provides real-time insights into marketing campaign performance, demographics, regional data, and weekly trends.
+
+## Features
+
+### 📊 **Dashboard Overview**
+- Real-time marketing metrics and KPIs
+- Company information and performance highlights
+- Market insights including peak performance analytics
+- Total campaigns, revenue, ROAS, and conversion tracking
+
+### 🎯 **Campaign Analytics**
+- Detailed campaign performance tracking
+- Advanced filtering by campaign name and type
+- Interactive charts for revenue and ROAS comparison
+- Performance breakdown by medium (Instagram, Facebook, Google Ads)
+- Comprehensive campaign data table with sorting capabilities
+
+### 👥 **Demographic Insights**
+- Audience demographic analysis
+- Age group and gender performance metrics
+- Device performance tracking
+- Target audience insights
+
+### 📅 **Weekly Performance**
+- Week-over-week performance tracking
+- Time-based analytics and trends
+- Historical performance data
+
+### 🌍 **Regional Analytics**
+- Geographic performance breakdown
+- Country and region-specific metrics
+- Regional ROAS and conversion tracking
+
+## Technology Stack
+
+- **Framework**: [Next.js 15](https://nextjs.org) with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+- **Data Source**: External API integration with Amana Bootcamp
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js (version 18 or higher)
+- npm, yarn, pnpm, or bun
 
+### Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd amana-marketing
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+3. Start the development server:
 ```bash
 npm run dev
 # or
@@ -14,23 +75,77 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to view the dashboard.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+amana-marketing/
+├── app/                          # Next.js App Router pages
+│   ├── api/marketing-data/       # API routes for data fetching
+│   ├── campaign-view/            # Campaign analytics page
+│   ├── demographic-view/         # Demographic insights page
+│   ├── weekly-view/              # Weekly performance page
+│   ├── region-view/              # Regional analytics page
+│   └── page.tsx                  # Main dashboard page
+├── src/
+│   ├── components/ui/            # Reusable UI components
+│   │   ├── navbar.tsx           # Navigation sidebar
+│   │   ├── card-metric.tsx      # Metric display cards
+│   │   ├── bar-chart.tsx        # Chart components
+│   │   ├── table.tsx            # Data table component
+│   │   └── ...
+│   ├── lib/                      # Utility functions
+│   │   └── api.ts               # API integration
+│   └── types/                    # TypeScript type definitions
+│       └── marketing.ts         # Marketing data types
+└── public/                       # Static assets
+```
 
-## Learn More
+## Key Components
 
-To learn more about Next.js, take a look at the following resources:
+### Navigation
+- Responsive sidebar navigation with collapsible design
+- Mobile-friendly hamburger menu
+- Active page indication
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Data Visualization
+- Interactive bar charts for performance metrics
+- Sortable and filterable data tables
+- Real-time metric cards with icons
+- Responsive design for all screen sizes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Filtering System
+- Search functionality for campaigns
+- Multi-select dropdown filters
+- Real-time filtering with instant results
 
-## Deploy on Vercel
+## API Integration
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The dashboard connects to the Amana Bootcamp API to fetch real-time marketing data:
+- Endpoint: `https://www.amanabootcamp.org/api/fs-classwork-data/amana-marketing`
+- Automatic data refresh and error handling
+- CORS-enabled for development
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Development
+
+### Building for Production
+```bash
+npm run build
+npm run start
+```
+
+### Tech Stack Details
+- **Next.js 15**: Latest version with Turbopack for faster builds
+- **React 19**: Latest React features
+- **TypeScript**: Full type safety
+- **Tailwind CSS 4**: Modern styling framework
+- **Lucide React**: Beautiful, customizable icons
+
+## Contributing
+
+This project is part of the Amana Bootcamp curriculum. Feel free to explore the code and suggest improvements.
+
+## License
+
+This project is for educational purposes as part of the Amana Bootcamp program.
